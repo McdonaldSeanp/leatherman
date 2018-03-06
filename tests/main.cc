@@ -2,7 +2,7 @@
 #include <catch.hpp>
 
 // To enable log messages:
-// #define ENABLE_LOGGING
+#define ENABLE_LOGGING
 
 #ifdef ENABLE_LOGGING
 #include <leatherman/logging/logging.hpp>
