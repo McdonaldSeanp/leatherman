@@ -147,7 +147,7 @@ namespace leatherman { namespace ruby {
         if (_initialized) {
             return;
         }
-
+        LOG_DEBUG("DEBUG1");
         // Prefer ruby_setup over ruby_init if present (2.0+)
         // If ruby is already initialized, this is a no-op
         if (ruby_setup) {
@@ -155,7 +155,7 @@ namespace leatherman { namespace ruby {
         } else {
             ruby_init();
         }
-
+        LOG_DEBUG("DEBUG2");
         if (_library.first_load()) {
             // Run an empty script evaluation
             // ruby_options is a required call as it sets up some important stuff (unfortunately)
@@ -164,7 +164,7 @@ namespace leatherman { namespace ruby {
                 "-e",
                 ""
             };
-
+            LOG_DEBUG("DEBUG3");
             // Check for bundler; this is the only ruby option we support
             string ruby_opt;
             if (environment::get("RUBYOPT", ruby_opt) && boost::starts_with(ruby_opt, "-rbundler/setup")) {
@@ -173,10 +173,10 @@ namespace leatherman { namespace ruby {
                 // Clear RUBYOPT so that only our options are used.
                 environment::set("RUBYOPT", "");
             }
-
+            LOG_DEBUG("DEBUG4");
             ruby_options(sizeof(opts) / sizeof(opts[0]), const_cast<char**>(opts));
         }
-
+        LOG_DEBUG("DEBUG5");
         // Get the values for nil, true, and false
         // We do this because these are not constant across ruby versions
         _nil = rb_ivar_get(*rb_cObject, rb_intern("@expected_to_be_nil"));
