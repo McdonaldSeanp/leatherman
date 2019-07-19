@@ -1,4 +1,4 @@
-find_package(Boost 1.54 REQUIRED COMPONENTS regex filesystem system)
+find_package(Boost 1.54 REQUIRED COMPONENTS regex filesystem system log)
 
 add_leatherman_deps("${Boost_LIBRARIES}")
 if ("${CMAKE_SYSTEM_NAME}" MATCHES "SunOS")
@@ -41,7 +41,7 @@ else()
 endif()
 
 if(WIN32)
-    set(PLATFORM_TESTS tests/windows/execution.cc)
+    # set(PLATFORM_TESTS tests/windows/execution.cc)
 else()
     set(PLATFORM_TESTS tests/posix/execution.cc)
     if("${CMAKE_SYSTEM_NAME}" MATCHES "SunOS")

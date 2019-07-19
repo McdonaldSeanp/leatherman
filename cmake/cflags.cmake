@@ -77,11 +77,12 @@ endif()
 if (WIN32)
     # Update standard link libraries to explicitly exclude kernel32. It isn't necessary, and when compiling with
     # MinGW makes the executable unusable on Microsoft Nano Server due to including __C_specific_handler.
-    SET(CMAKE_C_STANDARD_LIBRARIES "-luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 -lbcrypt"
-        CACHE STRING "Standard C link libraries." FORCE)
-    SET(CMAKE_CXX_STANDARD_LIBRARIES "-luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 -lbcrypt"
-        CACHE STRING "Standard C++ link libraries." FORCE)
-
+    if (NOT MSVC)
+        SET(CMAKE_C_STANDARD_LIBRARIES "-luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 -lbcrypt"
+            CACHE STRING "Standard C link libraries." FORCE)
+        SET(CMAKE_CXX_STANDARD_LIBRARIES "-luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 -lbcrypt"
+            CACHE STRING "Standard C++ link libraries." FORCE)
+    endif()
     # We currently support Windows Vista and later APIs, see
     # http://msdn.microsoft.com/en-us/library/windows/desktop/aa383745(v=vs.85).aspx for version strings.
     list(APPEND LEATHERMAN_DEFINITIONS -DWINVER=0x0600 -D_WIN32_WINNT=0x0600)
@@ -101,13 +102,19 @@ list(APPEND LEATHERMAN_DEFINITIONS -DPROJECT_NAME="${CMAKE_PROJECT_NAME}" -DPROJ
 if (NOT BOOST_STATIC)
     # Boost.Log requires that BOOST_LOG_DYN_LINK is set when using dynamic linking. We set ALL for consistency.
     list(APPEND LEATHERMAN_DEFINITIONS -DBOOST_ALL_DYN_LINK)
+    if (MSVC)
+        list(APPEND LEATHERMAN_DEFINITIONS -DBOOST_AUTO_LINK_NOMANGLE -DBOOST_NOWIDE_DYN_LINK)
+    endif()
 endif()
+
+
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 if (WIN32)
     # On Windows, DLL paths aren't hardcoded in the executable. We place all the executables and libraries
     # in the same directory to avoid having to setup the DLL search path in the dev environment.
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
 else()
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 endif()

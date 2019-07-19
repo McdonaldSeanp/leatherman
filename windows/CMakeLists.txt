@@ -1,4 +1,4 @@
-find_package(Boost 1.54 REQUIRED COMPONENTS filesystem regex system)
+find_package(Boost 1.54 REQUIRED COMPONENTS filesystem regex system log)
 
 add_leatherman_deps(Wbemuuid.lib userenv.lib "${Boost_LIBRARIES}")
 add_leatherman_includes("${Boost_INCLUDE_DIRS}")
@@ -24,4 +24,4 @@ set(WINDOWS_UTIL_SOURCES
 
 add_leatherman_library(${WINDOWS_UTIL_SOURCES})
 add_leatherman_headers(inc/leatherman)
-add_leatherman_test(tests/file_utils_test.cc)
+# add_leatherman_test(tests/file_utils_test.cc)

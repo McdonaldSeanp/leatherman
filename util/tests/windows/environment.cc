@@ -1,8 +1,11 @@
 #include <catch.hpp>
 #include <leatherman/util/environment.hpp>
 #include <leatherman/windows/windows.hpp>
-#include <unistd.h>
-
+#ifdef _MSC_VER
+    #include <process.h>
+#else
+    #include <unistd.h>
+#endif
 using namespace std;
 using namespace leatherman::util;
 

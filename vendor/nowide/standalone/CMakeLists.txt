@@ -20,13 +20,6 @@ elseif(MSVC)
 	set(CXX_FLAGS "/EHsc /W3")
 endif()
 
-if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-	if(MSVC)
-		set(NOWIDE_SUFFIX "-d")
-	endif()
-endif()
-
-
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_FLAGS}")
 
@@ -57,10 +50,6 @@ set_target_properties(nowide-static PROPERTIES
 				CLEAN_DIRECT_OUTPUT 1
 				OUTPUT_NAME "nowide${NOWIDE_SUFFIX}"
 			)
-
-if(MSVC)
-	set_target_properties(nowide-static PROPERTIES PREFIX "lib")
-endif()
 
 add_executable(test_iostream_shared test/test_iostream.cpp)
 set_target_properties(nowide PROPERTIES COMPILE_DEFINITIONS DLL_EXPORT)

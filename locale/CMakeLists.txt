@@ -1,5 +1,5 @@
 if (LEATHERMAN_USE_LOCALES)
-    find_package(Boost 1.54 REQUIRED COMPONENTS locale system)
+    find_package(Boost 1.54 REQUIRED COMPONENTS locale system regex)
     if (BOOST_STATIC AND LEATHERMAN_USE_ICU)
         find_package(ICU COMPONENTS i18n uc)
     endif()
@@ -38,7 +38,7 @@ else()
     add_leatherman_library(disabled/locale.cc)
 endif()
 
-add_leatherman_test(tests/format.cc)
+# add_leatherman_test(tests/format.cc)
 
 if (LEATHERMAN_USE_LOCALES AND BUILDING_LEATHERMAN)
     project(leatherman_locale)

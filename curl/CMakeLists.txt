@@ -1,4 +1,4 @@
-find_package(Boost 1.54 REQUIRED COMPONENTS regex system filesystem)
+find_package(Boost 1.54 REQUIRED COMPONENTS regex system filesystem log)
 
 add_leatherman_deps("${Boost_LIBRARIES}")
 add_leatherman_includes("${Boost_INCLUDE_DIRS}")
@@ -24,6 +24,7 @@ endif()
 add_leatherman_includes("${CURL_INCLUDE_DIRS}")
 
 leatherman_dependency(locale)
+leatherman_dependency(nowide)
 leatherman_dependency(logging)
 leatherman_dependency(util)
 leatherman_dependency(file_util)
