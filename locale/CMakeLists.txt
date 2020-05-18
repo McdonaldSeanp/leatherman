@@ -1,10 +1,10 @@
 if (LEATHERMAN_USE_LOCALES)
-    find_package(Boost 1.54 REQUIRED COMPONENTS locale system)
+    find_package(Boost 1.73 REQUIRED COMPONENTS locale system)
     if (BOOST_STATIC AND LEATHERMAN_USE_ICU)
         find_package(ICU COMPONENTS i18n uc)
     endif()
 else()
-    find_package(Boost 1.54 REQUIRED regex)
+    find_package(Boost 1.73 REQUIRED regex)
 endif()
 
 add_leatherman_includes(${Boost_INCLUDE_DIRS})

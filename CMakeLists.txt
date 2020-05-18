@@ -61,7 +61,6 @@ file(GLOB_RECURSE ALL_LEATHERMAN_SOURCES */src/*.cc */inc/*.hpp)
 add_subdirectory(locales)
 
 add_leatherman_dir(catch EXCLUDE_FROM_VARS)
-add_leatherman_dir(nowide)
 add_leatherman_dir(util)
 add_leatherman_dir(locale)
 add_leatherman_dir(logging)
